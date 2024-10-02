@@ -6,3 +6,11 @@ docker rm $(docker ps -a -q)
 
 //Remove all docker images
 docker rmi $(docker images -q)
+
+//Dependency check pipeline stage
+  stage('OWASP Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'DP'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
