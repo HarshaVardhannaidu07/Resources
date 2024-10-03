@@ -14,3 +14,16 @@ docker rmi $(docker images -q)
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
+//sonar-analysis stage
+stage('Sonar Analysis') {
+            steps {
+                sh '''
+                    $SCANNER_HOME/bin/sonar-scanner -X \
+                    -Dsonar.host.url=\
+                    -Dsonar.login= \
+                    -Dsonar.projectKey= \
+                    -Dsonar.projectName= \
+                    -Dsonar.java.binaries=.
+                '''
+            }
+        }
